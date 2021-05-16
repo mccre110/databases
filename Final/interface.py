@@ -221,28 +221,30 @@ class Interface(QObject):
 
     def filterInvoice(self, mech, veh):
         if mech != -1 and veh != -1:
-            self.cur.execute("""SELECT * FROM Invoice WHERE MechanicID IN (
-                SELECT MechanicID FROM Invoice WHERE MechanicID = %s AND VehicleID = %s
+            self.cur.execute("""SELECT * FROM InvoiceView WHERE ID IN (
+                SELECT ID FROM Invoice WHERE MechanicID = %s AND VehicleID = %s
             );""" % (mech,veh))
             names = [des[0] for des in self.cur.description]
             myrecords = self.cur.fetchall()
             df = pd.DataFrame(myrecords, columns=names)
             self.parent.viewSignal.emit(df)
-            self.parent.logSignal.emit("""SELECT * FROM Invoice WHERE MechanicID IN (SELECT MechanicID FROM Invoice WHERE MechanicID = %s AND VehicleID = %s);""" % (mech,veh))
+            self.parent.logSignal.emit("""SELECT ID FROM Invoice WHERE MechanicID IN (SELECT MechanicID FROM Invoice WHERE MechanicID = %s AND VehicleID = %s);""" % (mech,veh))
         elif mech != -1:
-            self.cur.execute("""SELECT * FROM Invoice WHERE MechanicID = %s;""" % (mech,))
+            self.cur.execute("""SELECT * FROM InvoiceView WHERE ID IN (
+                SELECT ID FROM Invoice WHERE MechanicID = %s);""" % (mech,))
             names = [des[0] for des in self.cur.description]
             myrecords = self.cur.fetchall()
             df = pd.DataFrame(myrecords, columns=names)
             self.parent.viewSignal.emit(df)
-            self.parent.logSignal.emit("""SELECT * FROM Invoice WHERE MechanicID = %s;""" % (mech,))
+            self.parent.logSignal.emit("""SELECT * FROM InvoiceView WHERE ID IN (SELECT ID FROM Invoice WHERE MechanicID = %s);""" % (mech,))
         elif veh != -1:
-            self.cur.execute("""SELECT * FROM Invoice WHERE VehicleID = %s;""" % (veh,))
+            self.cur.execute("""SELECT * FROM InvoiceView WHERE ID IN (
+                SELECT ID FROM Invoice WHERE VehicleID = %s);""" % (veh,))
             names = [des[0] for des in self.cur.description]
             myrecords = self.cur.fetchall()
             df = pd.DataFrame(myrecords, columns=names)
             self.parent.viewSignal.emit(df)
-            self.parent.logSignal.emit("""SELECT * FROM Invoice WHERE VehicleID = %s;""" % (veh,))
+            self.parent.logSignal.emit("""SELECT * FROM InvoiceView WHERE ID IN (SELECT ID FROM Invoice WHERE VehicleID = %s);""" % (veh,))
 
     def insertMechanic(self,row):
         self.cur.execute('''
