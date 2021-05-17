@@ -45,6 +45,12 @@ class Window(QtWidgets.QWidget):
     def connectActions(self):
         self.logSignal.connect(self.appendLog)
         self.viewSignal.connect(self.updateView)
+        self.reportButton.clicked.connect(self.report)
+
+    @pyqtSlot()
+    def report(self):
+        if self.interface.generateReports():
+            QtWidgets.QMessageBox.information(self,"Report", "Sucessfully Genreated", QtWidgets.QMessageBox.Ok)
 
     @pyqtSlot(str)
     def appendLog(self, text):

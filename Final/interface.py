@@ -307,11 +307,51 @@ class Interface(QObject):
             return 0
         else:
             return results[0][0]
-
-# if __name__ == "__main__":
-#     i = Interface(None)
-#     i.filterMechanic("%test%")
-
+    
+    def generateReports(self):
+        self.cur.execute("""
+                        SELECT V.Year, M2.Name AS Make, M3.Name AS Model, AVG(Amount) AS "Average Invoice Amount", SUM(Amount) as "Total Invoice Amount"
+                        FROM
+                            Invoice
+                                join Mechanic M on M.ID = Invoice.MechanicID
+                                join Vehicle V on V.ID = Invoice.VehicleID
+                                join Model M2 on V.ModelID = M2.ID
+                                join Manufacturer M3 on M3.ID = M2.ManufacturerID
+                        WHERE Invoice.isDeleted != 1 AND V.isDeleted !=1 and M.isDeleted != 1
+                        GROUP BY V.ID;
+                        """)
+        names = [des[0] for des in self.cur.description]
+        myrecords = self.cur.fetchall()
+        pd.DataFrame(myrecords, columns=names).to_csv("Vehicle_Summary.csv",encoding='utf-8', index=False)
+        self.cur.execute("""
+                        SELECT M.Name AS Mechanic, AVG(Amount) AS "Average Invoice Amount", SUM(Amount) as "Total Invoice Amount"
+                        FROM
+                            Invoice
+                                join Mechanic M on M.ID = Invoice.MechanicID
+                                join Vehicle V on V.ID = Invoice.VehicleID
+                                join Model M2 on V.ModelID = M2.ID
+                                join Manufacturer M3 on M3.ID = M2.ManufacturerID
+                        WHERE Invoice.isDeleted != 1 AND V.isDeleted !=1 and M.isDeleted != 1
+                        GROUP BY M.ID;
+                        """)
+        names = [des[0] for des in self.cur.description]
+        myrecords = self.cur.fetchall()
+        pd.DataFrame(myrecords, columns=names).to_csv("Mechanic_Summary.csv",encoding='utf-8', index=False)
+        self.cur.execute("""
+                        SELECT M3.Name AS Manufactuer, AVG(Amount) AS "Average Invoice Amount", SUM(Amount) as "Total Invoice Amount"
+                        FROM
+                            Invoice
+                                join Mechanic M on M.ID = Invoice.MechanicID
+                                join Vehicle V on V.ID = Invoice.VehicleID
+                                join Model M2 on V.ModelID = M2.ID
+                                join Manufacturer M3 on M3.ID = M2.ManufacturerID
+                        WHERE Invoice.isDeleted != 1 AND V.isDeleted !=1 and M.isDeleted != 1
+                        GROUP BY M3.ID;
+                        """)
+        names = [des[0] for des in self.cur.description]
+        myrecords = self.cur.fetchall()
+        pd.DataFrame(myrecords, columns=names).to_csv("Manufactuer_Summary.csv",encoding='utf-8', index=False)
+        return(True)
 
 
 
