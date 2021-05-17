@@ -32,7 +32,7 @@ class Vehicles(BaseTab):
             makeID = self.interface.checkExist("Manufacturer", "Name", make)
             if makeID == 0:
                 row = {"Make":make}
-                makeID = self.insertMake(row)
+                makeID = self.interface.insertMake(row)
             modelID = self.interface.checkExist("Model", "Name", model)
             if modelID == 0:
                 row = {"Model":model}
@@ -44,7 +44,7 @@ class Vehicles(BaseTab):
             makeID = self.interface.checkExist("Manufacturer", "Name", make)
             if makeID == 0:
                 row = {"Make":make}
-                makeID = self.insertMake(row)
+                makeID = self.interface.insertMake(row)
             modelID = self.interface.checkExist("Model", "Name", model)
             if modelID == 0:
                 row = {"Model":model}
