@@ -1,7 +1,8 @@
 # Auto Maintence Logger
 ## Corey McCrea
 Tracks Car, Mechanic, and Invoice Information
-* To run execute `window.py`
+* To run, execute `window.py`
+* Built with Python, PyQt, and MySQL
 
 
 ### References
