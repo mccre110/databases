@@ -6,7 +6,7 @@ class FilterMechanic(QtWidgets.QDialog):
 
     def __init__(self, parent, interface):
         super(FilterMechanic, self).__init__(parent=parent)
-        uic.loadUi("filterMechanic.ui", self)
+        uic.loadUi("GUI//filterMechanic.ui", self)
         self.parent = parent
         self.interface = interface
         self.connectActions()

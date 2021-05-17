@@ -26,7 +26,7 @@ class Window(QtWidgets.QWidget):
     
     def __init__(self, parent):
         super(Window, self).__init__(parent=parent)
-        uic.loadUi("master.ui", self)
+        uic.loadUi("GUI//master.ui", self)
         self.setWindowTitle("Auto Maintenance Logger")
         self.parent = parent
         self.interface = interface.Interface(self)

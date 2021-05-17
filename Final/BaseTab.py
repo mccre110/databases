@@ -9,7 +9,7 @@ class BaseTab(QtWidgets.QWidget):
 
     def __init__(self, parent, interface):
         super(BaseTab, self).__init__(parent=parent)
-        uic.loadUi("tab.ui", self)
+        uic.loadUi("GUI//tab.ui", self)
         self.parent = parent
         self.interface = interface
 

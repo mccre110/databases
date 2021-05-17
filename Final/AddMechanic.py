@@ -6,7 +6,7 @@ class AddMechanic(QtWidgets.QDialog):
 
     def __init__(self, parent):
         super(AddMechanic, self).__init__(parent=parent)
-        uic.loadUi("addMechanic.ui", self)
+        uic.loadUi("GUI//addMechanic.ui", self)
         self.parent = parent
         self.ID = 0
         

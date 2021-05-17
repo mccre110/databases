@@ -1,4 +1,3 @@
-# https://stackoverflow.com/questions/31475965/fastest-way-to-populate-qtableview-from-pandas-data-frame
 from PyQt5 import QtGui, QtCore
 
 class PandasTableModel(QtGui.QStandardItemModel):

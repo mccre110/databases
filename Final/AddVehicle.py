@@ -6,7 +6,7 @@ class AddVehicle(QtWidgets.QDialog):
 
     def __init__(self, parent):
         super(AddVehicle, self).__init__(parent=parent)
-        uic.loadUi("addVehicle.ui", self)
+        uic.loadUi("GUI//addVehicle.ui", self)
         self.parent = parent
         self.ID = 0
 

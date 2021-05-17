@@ -6,7 +6,7 @@ class FilterInvoice(QtWidgets.QDialog):
 
     def __init__(self, parent, interface):
         super(FilterInvoice, self).__init__(parent=parent)
-        uic.loadUi("filterInvoice.ui", self)
+        uic.loadUi("GUI//filterInvoice.ui", self)
         self.parent = parent
         self.interface = interface
         self.connectActions()

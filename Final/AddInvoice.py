@@ -6,7 +6,7 @@ class AddInvoice(QtWidgets.QDialog):
 
     def __init__(self, parent, interface):
         super(AddInvoice, self).__init__(parent=parent)
-        uic.loadUi("addInvoice.ui", self)
+        uic.loadUi("GUI//addInvoice.ui", self)
         self.parent = parent
         self.interface = interface
         self.ID = 0

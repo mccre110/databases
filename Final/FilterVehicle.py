@@ -6,7 +6,7 @@ class FilterVehicle(QtWidgets.QDialog):
 
     def __init__(self, parent, interface):
         super(FilterVehicle, self).__init__(parent=parent)
-        uic.loadUi("filterVehicle.ui", self)
+        uic.loadUi("GUI//filterVehicle.ui", self)
         self.parent = parent
         self.interface = interface
         self.connectActions()
