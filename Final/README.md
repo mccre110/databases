@@ -5,6 +5,7 @@
 Tracks Car, Mechanic, and Invoice Information
 * To run, execute `window.py`
 * Built with Python, PyQt, and MySQL
+* `console.sql` provided for database setup reference
 
 # Data Schema
 ![Database](https://user-images.githubusercontent.com/42788050/118437806-1f384e00-b698-11eb-8779-3623ccedb797.png)
