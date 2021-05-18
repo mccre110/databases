@@ -50,7 +50,7 @@ class Window(QtWidgets.QWidget):
     @pyqtSlot()
     def report(self):
         if self.interface.generateReports():
-            QtWidgets.QMessageBox.information(self,"Report", "Sucessfully Genreated", QtWidgets.QMessageBox.Ok)
+            QtWidgets.QMessageBox.information(self,"Report", "Sucessfully Generated", QtWidgets.QMessageBox.Ok)
 
     @pyqtSlot(str)
     def appendLog(self, text):
