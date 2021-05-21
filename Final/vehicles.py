@@ -32,25 +32,25 @@ class Vehicles(BaseTab):
             makeID = self.interface.checkExist("Manufacturer", "Name", make)
             if makeID == 0:
                 row = {"Make":make}
-                makeID = self.interface.insertMake(row)
+                makeID = self.interface.insertMake(row, commit = False)
             modelID = self.interface.checkExist("Model", "Name", model)
             if modelID == 0:
                 row = {"Model":model}
-                modelID = self.interface.insertModel(row, makeID)
+                modelID = self.interface.insertModel(row, makeID, commit = False)
             row = {"ID":id, "Year":year, "Color":color, "Miles": miles}
-            vehicleID = self.interface.updateVehicle(row, modelID)
+            vehicleID = self.interface.updateVehicle(row, modelID, commit = True)
             self.addWidget.hide()
         else:
             makeID = self.interface.checkExist("Manufacturer", "Name", make)
             if makeID == 0:
                 row = {"Make":make}
-                makeID = self.interface.insertMake(row)
+                makeID = self.interface.insertMake(row, commit = False)
             modelID = self.interface.checkExist("Model", "Name", model)
             if modelID == 0:
                 row = {"Model":model}
-                modelID = self.interface.insertModel(row, makeID)
+                modelID = self.interface.insertModel(row, makeID, commit = False)
             row = {"Year":year, "Color":color, "Miles": miles}
-            vehicleID = self.interface.insertVehicle(row, modelID)
+            vehicleID = self.interface.insertVehicle(row, modelID, commit = True)
             self.addWidget.hide()
         return
     
