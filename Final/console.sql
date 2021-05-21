@@ -121,3 +121,13 @@ FROM
         join Manufacturer M3 on M3.ID = M2.ManufacturerID
 WHERE Invoice.isDeleted != 1 AND V.isDeleted !=1 and M.isDeleted != 1
 GROUP BY M3.ID;
+
+Create UNIQUE INDEX Make_Name_Index On Manufacturer (Name);
+Alter TABLE Manufacturer ADD INDEX (Name);
+Create UNIQUE INDEX Mechanic_Name_Index On Mechanic (Name);
+Alter TABLE Mechanic ADD INDEX (Name);
+Create UNIQUE INDEX Model_Name_Index On Model (Name);
+Alter TABLE Model ADD INDEX (Name);
+Create  INDEX Vehicle_Year_Index On Vehicle (Year);
+Alter TABLE Vehicle ADD INDEX (Year);
+

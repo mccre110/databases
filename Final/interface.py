@@ -89,7 +89,7 @@ class Interface(QObject):
         except DatabaseError:
             print("Error Occured")
 
-    def insertVehicle(self,row, mID):
+    def insertVehicle(self,row, mID, commit = True):
         try:
             self.cur.execute('''
                     INSERT INTO Vehicle(Year, Color, Miles, ModelID)
@@ -100,7 +100,8 @@ class Interface(QObject):
                         row["Miles"],
                         mID)
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''INSERT INTO Vehicle(Year, Color, Miles, ModelID) VALUES (%s,%s,%s,%s)''' %
                         (row["Year"],
                         row["Color"],
@@ -109,9 +110,9 @@ class Interface(QObject):
                         )
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
 
-    def updateVehicle(self,row, mID):
+    def updateVehicle(self,row, mID, commit = True):
         try:
             self.cur.execute('''
                     UPDATE Vehicle
@@ -129,7 +130,8 @@ class Interface(QObject):
                         mID,
                         row["ID"])
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit(''' UPDATE Vehicle SET Year = %s, Color = %s, Miles = %s, ModelID = %s WHERE ID = %s;''' %
                         (row["Year"],
                         row["Color"],
@@ -138,7 +140,7 @@ class Interface(QObject):
                         row["ID"]))
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
 
     def filterVehicle(self, mID):
         try:
@@ -151,7 +153,7 @@ class Interface(QObject):
         except DatabaseError:
             print("Error Occured")
 
-    def insertMake(self,row):
+    def insertMake(self,row, commit = True):
         try:
             self.cur.execute('''
                     INSERT INTO Manufacturer(Name)
@@ -159,15 +161,16 @@ class Interface(QObject):
                     ''',
                         (row["Make"],)
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''INSERT INTO Manufacturer(Name) VALUES (%s)''' %
                         (row["Make"],)
                         )
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
 
-    def insertModel(self,row, mID):
+    def insertModel(self,row, mID, commit = True):
         try:
             self.cur.execute('''
                     INSERT INTO Model(Name, ManufacturerID)
@@ -176,16 +179,17 @@ class Interface(QObject):
                         (row["Model"],
                         mID)
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''INSERT INTO Model(Name, ManufacturerID) VALUES (%s,%s)
             ''' %
                         (row["Model"],
                         mID))
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
 
-    def insertInvoice(self,row, mID, vID):
+    def insertInvoice(self,row, mID, vID, commit = True):
         try:
             self.cur.execute('''
                     INSERT INTO Invoice(Date, Amount, MechanicID, Description, Odometer, VehicleID)
@@ -198,7 +202,8 @@ class Interface(QObject):
                         row["Odo"],
                         vID)
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''INSERT INTO Invoice(Date, Amount, MechanicID, Description, Odometer, VehicleID) VALUES (%s,%s,%s,%s,%s,%s)''' %
                         (row["Date"],
                         row["Amount"],
@@ -208,9 +213,9 @@ class Interface(QObject):
                         vID))
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
     
-    def updateInvoice(self,row, mID, vID):
+    def updateInvoice(self,row, mID, vID, commit = True):
         try:
             self.cur.execute('''
                     UPDATE Invoice
@@ -232,7 +237,8 @@ class Interface(QObject):
                         vID,
                         row["ID"])
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''UPDATE Invoice SET Date = %s, Amount = %s, MechanicID = %s, Description = %s, Odometer = %s, VehicleID = %s WHERE ID = %s;''' %
                         (row["Date"],
                         row["Amount"],
@@ -243,7 +249,7 @@ class Interface(QObject):
                         row["ID"]))
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
 
     def filterInvoice(self, mech, veh):
         try:
@@ -275,7 +281,7 @@ class Interface(QObject):
         except DatabaseError:
             print("Error Occured")
 
-    def insertMechanic(self,row):
+    def insertMechanic(self,row,commit = True):
         try:
             self.cur.execute('''
                     INSERT INTO Mechanic(Name, PhoneNumber, Address)
@@ -285,16 +291,17 @@ class Interface(QObject):
                         row["Phone"],
                         row["Address"])
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''INSERT INTO Mechanic(Name, PhoneNumber, Address) VALUES (%s,%s,%s)''' %
                         (row["Name"],
                         row["Phone"],
                         row["Address"]))
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
     
-    def updateMechanic(self,row):
+    def updateMechanic(self,row, commit = True):
         try:
             self.cur.execute('''
                     UPDATE Mechanic
@@ -310,7 +317,8 @@ class Interface(QObject):
                         row["Address"],
                         row["ID"])
                         )
-            self.db.commit()
+            if commit:
+                self.db.commit()
             self.parent.logSignal.emit('''UPDATE Mechanic SET Name = %s, PhoneNumber = %s, Address = %s WHERE ID = %s;''' %
                         (row["Name"],
                         row["Phone"],
@@ -319,7 +327,7 @@ class Interface(QObject):
                         )
             return self.cur.lastrowid
         except DatabaseError:
-            print("Error Occured")
+            self.db.rollback()
     
     def filterMechanic(self, add):
         try:
